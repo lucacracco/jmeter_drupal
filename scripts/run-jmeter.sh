@@ -2,7 +2,7 @@
 
 JMX=jmeter.jmx
 REPORT_DIR=./reports/
-JMETER_BIN=apache-jmeter/bin
+JMETER_DIR=./apache-jmeter
 
 for i in "$@"
 do
@@ -11,8 +11,8 @@ case $i in
     JMX="${i#*=}"
     shift # past argument=value
     ;;
-    -b=*|--jmeter_bin=*)
-    JMETER_BIN="${i#*=}"
+    -d=*|--jmeter_dir=*)
+    JMETER_DIR="${i#*=}"
     shift # past argument=value
     ;;
     -r=*|--report_dir=*)
@@ -31,19 +31,19 @@ done
 
 # Reporting dir: start fresh.
 echo "==== Reporting dir: start fresh ===="
-sudo rm -rf ${REPORT_DIR}
-sudo mkdir -p ${REPORT_DIR}
+rm -rf ${REPORT_DIR}
+mkdir -p ${REPORT_DIR}
 
 echo "==== Run jmeter instance ===="
-sudo ${JMETER_BIN}/jmeter \
+${JMETER_DIR}/bin/jmeter \
     -n -t ${JMX} -l ${REPORT_DIR}/log/log.jtl -j ${REPORT_DIR}/log/log.log \
     -e -o ${REPORT_DIR}/output
 
 # Set permission folder and files report.
 OWNER_UID=$(id -u)
 OWNER_GID=$(id -g)
-sudo chmod -R 775 ${REPORT_DIR}
-sudo chown ${OWNER_UID}:${OWNER_GID} ${REPORT_DIR}
+chmod -R 775 ${REPORT_DIR}
+chown ${OWNER_UID}:${OWNER_GID} ${REPORT_DIR}
 
 #echo "==== JMeter Log ===="
 #cat ${REPORT_DIR}/log/log.log

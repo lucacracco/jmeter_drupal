@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 JMX=jmeter.jmx
-JMETER_BIN=apache-jmeter/bin
+JMETER_DIR=./apache-jmeter
 
 for i in "$@"
 do
@@ -10,8 +10,8 @@ case $i in
     JMX="${i#*=}"
     shift # past argument=value
     ;;
-    -b=*|--jmeter_bin=*)
-    JMETER_BIN="${i#*=}"
+    -d=*|--jmeter_dir=*)
+    JMETER_DIR="${i#*=}"
     shift # past argument=value
     ;;
     --default)
@@ -24,4 +24,4 @@ case $i in
 esac
 done
 
-${JMETER_BIN}/bin/jmeter.sh -t ${JMX}
+${JMETER_DIR}/bin/jmeter.sh -t ${JMX}

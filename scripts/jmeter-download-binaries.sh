@@ -2,10 +2,28 @@
 
 # @todo get last binaries available?!
 JMETER_BINARIES="http://mirror.nohup.it/apache//jmeter/binaries/apache-jmeter-5.0.zip"
+JMETER_DIR="./apache-jmeter"
 
-if [ -d "apache-jmeter" ]; then
+for i in "$@"
+do
+case $i in
+    -d=*|--jmeter_dir=*)
+    JMETER_DIR="${i#*=}"
+    shift # past argument=value
+    ;;
+    --default)
+    DEFAULT=YES
+    shift # past argument with no value
+    ;;
+    *)
+          # unknown option
+    ;;
+esac
+done
+
+if [ -d "${JMETER_DIR}" ]; then
     echo "==== Remove current dir ===="
-    rm -rf ./apache-jmeter-5.0
+    rm -rf ${JMETER_DIR}
 fi
 
 echo "==== Download zip with binaries and unzip ===="
@@ -16,4 +34,4 @@ unzip apache-jmeter-5.0.zip
 rm apache-jmeter-5.0.zip
 
 # Rename directory
-mv apache-jmeter-5.0 apache-jmeter
+mv apache-jmeter-5.0 ${JMETER_DIR}

@@ -2,6 +2,7 @@
 
 # @todo get last binaries available?!
 JMETER_BINARIES="http://mirror.nohup.it/apache//jmeter/binaries/apache-jmeter-5.0.zip"
+JMETER_PLUGIN="https://github.com/NovatecConsulting/JMeter-InfluxDB-Writer/releases/download/v-1.2/JMeter-InfluxDB-Writer-plugin-1.2.jar"
 JMETER_DIR="./apache-jmeter"
 
 for i in "$@"
@@ -35,3 +36,6 @@ rm apache-jmeter-5.0.zip
 
 # Rename directory
 mv apache-jmeter-5.0 ${JMETER_DIR}
+
+echo "==== Download plugins ===="
+wget ${JMETER_PLUGIN} -P ${JMETER_DIR}/lib/ext

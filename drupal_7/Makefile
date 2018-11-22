@@ -4,10 +4,11 @@ default: help
 
 # Include other commands.
 include ../docker.mk
+include ../influxdb_grafana.mk
 include ../jmeter.mk
 
 test: ## Lanch test commands.
-	make jmeter-download-binaries
+	make jmeter-download
 	make docker-build
 	make docker-run
 	make jmeter-run

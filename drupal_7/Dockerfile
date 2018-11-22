@@ -6,4 +6,5 @@ RUN /etc/init.d/mysql start && \
 	drush si -y standard --db-url=mysql://drupal:drupal@localhost/drupal --account-pass=admin && \
 	drush dl admin_menu devel && \
 	drush en -y admin_menu devel devel_generate && \
-    drush -y generate-content 50
+    drush -y generate-content 50 && \
+    drush -y generate-terms tags 5
